@@ -19,7 +19,7 @@ var apiKey = '4894486d815e0e939f58bd7e60ff1f43';
 //function to get API response given user input for city
 function getApi(event) {
     event.preventDefault();
-    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityInputEl.val() + "&appid=" + apiKey;
+    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityInputEl.val() + "&appid=" + apiKey;
     // storeCities(cityInputEl.val());
     fetch(queryURL)
         .then(function (response) {
