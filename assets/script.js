@@ -5,12 +5,12 @@ var fivedayWeatherContainer = document.querySelector('#five-day-weather');
 var submitBtn = document.querySelector('.btn');
 var searchListElement = document.querySelector('#city-buttons')
 
-
-var searchHistory = JSON.parse(localStorage.getItem("searchedcity"));
-if(searchHistory === null) {
-    searchHistory = []
-}
-console.log(searchHistory)
+//code for local storage is breaking - need to fix
+// var searchHistory = JSON.parse(localStorage.getItem("searchedcity"));
+// if(searchHistory === null) {
+//     searchHistory = []
+// }
+// console.log(searchHistory)
 
 
 var apiKey = '4894486d815e0e939f58bd7e60ff1f43';
@@ -20,7 +20,7 @@ var apiKey = '4894486d815e0e939f58bd7e60ff1f43';
 function getApi(event) {
     event.preventDefault();
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityInputEl.val() + "&appid=" + apiKey;
-    storeCities(cityInputEl.val());
+    // storeCities(cityInputEl.val());
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -82,23 +82,23 @@ function display5dayweather(fivedaydata) {
 
     }
 }
+//code is breaking for local storage - need to fix this
+// function storeCities(city) {
+//     searchHistory.push(city);
+//     console.log(searchHistory)
+//     localStorage.setItem("searchedcity", JSON.stringify(city));
+// }
 
-function storeCities(city) {
-    searchHistory.push(city);
-    console.log(searchHistory)
-    localStorage.setItem("searchedcity", JSON.stringify(city));
-}
-
-function displayStoredCities() {
-    console.log(typeof searchHistory)
-    for(var i = 0; i < searchHistory.length; i++) {
-        console.log(searchHistory[i])
-        var btn = document.createElement("button")
-        btn.innerText = searchHistory[i]
-        searchListElement.appendChild(btn)
-    }
-}
-displayStoredCities();
+// function displayStoredCities() {
+//     console.log(typeof searchHistory)
+//     for(var i = 0; i < searchHistory.length; i++) {
+//         console.log(searchHistory[i])
+//         var btn = document.createElement("button")
+//         btn.innerText = searchHistory[i]
+//         searchListElement.appendChild(btn)
+//     }
+// }
+// displayStoredCities();
 
 
 userFormEl.addEventListener("submit", getApi)
