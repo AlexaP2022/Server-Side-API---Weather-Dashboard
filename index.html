@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Weather Dashboard</title>
+</head>
+
+<body class="flex-column min-100-vh">
+    <header class="hero">
+        <h1 class="app-title">
+            <i class="glyphicon glyphicon-cloud"
+                style="font-size:60px; text-shadow:2px 2px 4px #837e7e;">WeatherDashboard</i>
+        </h1>
+        <p>Use the search bar below to display current and future weather forecast for a given city.</p>
+    </header>
+
+    <main class="flex-row justify-space-between">
+        <div class="col12 col-md-4">
+
+            <div class="card">
+                <h4 class="card-header">Search for a City</h4>
+                <form id="user-form" class="card-body">
+                    <label class="form-label" for="city">City</label>
+                    <input name="city" id="city" type="text" class="form-input" />
+                    <button type="submit" class="btn">Search</button>
+                </form>
+            </div>
+
+            <div>
+                <h4 class="card-header">Previously Searched</h4>
+                <div id="city-buttons" class="user-entered-list">
+                  <!-- create element <a> buttons for cities searched -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col12 col-md-8">
+            <h2 class="subtitle">Weather Forecast</h2>
+            <div id="weather-container"></div>
+        </div>
+
+        <div class="col12 col-md-8 justify-space-between">
+            <div id="five-day-weather" class="row"></div>
+        </div>
+
+    </main>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="assets/script.js"></script>
+
+</html>

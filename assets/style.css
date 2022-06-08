@@ -1,0 +1,34 @@
+:root {
+    --primary: #f3f3f3;
+    --secondary: #32b4ff;
+    --tertiary: #27495c; 
+
+
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary);
+    color:var(--secondary);
+    margin: 0;
+    padding: 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+
+}
+
+.app-title, header p {
+    text-align: center;
+}
+
+.row {
+    display: flex-wrap;
+    margin-left: 400px;
+
+}
+
+#five-day-weather {
+    background-color: var(--tertiary);
+}
