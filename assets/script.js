@@ -48,23 +48,27 @@ function getApi(event) {
                 })
         });
 }
-
+// function to display current weather
 function displayCurrentWeather(data) {
     var temp = document.createElement("p");
     var wind = document.createElement("p");
     var humidity = document.createElement("p");
     var uvIndex = document.createElement("p");
+    var image = document.createElement("img");
+    var imageUrl = "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + ".png"; // added current weather icon (missing from initial submission)
+    image.setAttribute("src",imageUrl);
     temp.innerText = "Temp: " + data.current.temp + " F";
     wind.innerText = "Wind: " + data.current.wind_speed + " mph";
     humidity.innerText = "Humidity: " + data.current.humidity + " %";
     uvIndex.innerText = "UV Index: " + data.current.uvi;
+    weatherContainer.appendChild(image);
     weatherContainer.appendChild(temp);
     weatherContainer.appendChild(wind);
     weatherContainer.appendChild(humidity);
     weatherContainer.appendChild(uvIndex);
     display5dayweather(data.daily);
 }
-
+//function to display 5 day weather
 function display5dayweather(fivedaydata) {
     for (var i = 1; i < 5; i++) {
         console.log(fivedaydata[i])
@@ -91,6 +95,7 @@ function display5dayweather(fivedaydata) {
     }
 }
 
+//function to store cities to local storage (missing from initial submission)
 function storeCities(city) {
     console.log(searchHistory);
     if(city !== ""){
@@ -99,7 +104,7 @@ function storeCities(city) {
     }
     
 }
-
+//function to display stored cities as a button to the page (missing from initial submission)
 function displayStoredCities() {
     console.log(typeof searchHistory)
     searchListElement.innerHTML = "";
