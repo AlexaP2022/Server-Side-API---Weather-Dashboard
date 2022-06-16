@@ -5,12 +5,12 @@ var fivedayWeatherContainer = document.querySelector('#five-day-weather');
 var submitBtn = document.querySelector('.btn');
 var searchListElement = document.querySelector('#city-buttons')
 
-//code for local storage is breaking - need to fix
-// var searchHistory = JSON.parse(localStorage.getItem("searchedcity"));
-// if(searchHistory === null) {
-//     searchHistory = []
-// }
-// console.log(searchHistory)
+
+var searchHistory = JSON.parse(localStorage.getItem("searchedcity"));
+if(searchHistory === null) {
+    searchHistory = []
+}
+console.log(searchHistory)
 
 
 var apiKey = '4894486d815e0e939f58bd7e60ff1f43';
@@ -19,13 +19,21 @@ var apiKey = '4894486d815e0e939f58bd7e60ff1f43';
 //function to get API response given user input for city
 function getApi(event) {
     event.preventDefault();
-    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityInputEl.val() + "&appid=" + apiKey;
-    // storeCities(cityInputEl.val());
+    var search = "";
+    if(cityInputEl.val() === "") {
+        search = event.target.innerText
+    } else {
+        search = cityInputEl.val();
+    }
+    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + search + "&appid=" + apiKey;
+    storeCities(cityInputEl.val());
     fetch(queryURL)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
             console.log(data);
+            displayStoredCities();
+            weatherContainer.innerHTML = "";
             var city = document.createElement("h3")
             city.innerText = "Current weather for " + data[0].name + " on " + moment().format("dddd, MMM Do YYYY");
             weatherContainer.appendChild(city);
@@ -35,13 +43,13 @@ function getApi(event) {
                     return response.json();
                 }).then(function (data) {
                     console.log(data);
+                    cityInputEl.val("");
                     displayCurrentWeather(data);
                 })
         });
 }
 
 function displayCurrentWeather(data) {
-
     var temp = document.createElement("p");
     var wind = document.createElement("p");
     var humidity = document.createElement("p");
@@ -65,7 +73,7 @@ function display5dayweather(fivedaydata) {
         date.innerText = moment.unix(fivedaydata[i].dt).format("dddd, MMM Do YYYY");
         card.appendChild(date);
         var image = document.createElement("img");
-        var imageUrl = "http://openweathermap.org/img/wn/" + fivedaydata[i].weather[0].icon + ".png"
+        var imageUrl = "https://openweathermap.org/img/wn/" + fivedaydata[i].weather[0].icon + ".png"
         var temp = document.createElement("p");
         var wind = document.createElement("p");
         var humidity = document.createElement("p");
@@ -82,23 +90,28 @@ function display5dayweather(fivedaydata) {
 
     }
 }
-//code is breaking for local storage - need to fix this
-// function storeCities(city) {
-//     searchHistory.push(city);
-//     console.log(searchHistory)
-//     localStorage.setItem("searchedcity", JSON.stringify(city));
-// }
 
-// function displayStoredCities() {
-//     console.log(typeof searchHistory)
-//     for(var i = 0; i < searchHistory.length; i++) {
-//         console.log(searchHistory[i])
-//         var btn = document.createElement("button")
-//         btn.innerText = searchHistory[i]
-//         searchListElement.appendChild(btn)
-//     }
-// }
-// displayStoredCities();
+function storeCities(city) {
+    console.log(searchHistory);
+    if(city !== ""){
+        searchHistory.push(city);
+        localStorage.setItem("searchedcity", JSON.stringify(searchHistory));
+    }
+    
+}
+
+function displayStoredCities() {
+    console.log(typeof searchHistory)
+    searchListElement.innerHTML = "";
+    for(var i = 0; i < searchHistory.length; i++) {
+        console.log(searchHistory[i])
+        var btn = document.createElement("button")
+        btn.innerText = searchHistory[i]
+        btn.addEventListener("click", getApi)
+        searchListElement.appendChild(btn)
+    }
+}
+displayStoredCities();
 
 
 userFormEl.addEventListener("submit", getApi)
